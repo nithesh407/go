@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 
@@ -23,8 +24,15 @@ func htmltag(w http.ResponseWriter,r *http.Request)  {
 	w.Header().Set("Content-Type","text/html")
 	fmt.Fprint(w,"<h1>Hello</h1>")
 }
+func timeout(w http.ResponseWriter,r *http.Request)  {
+	
+	fmt.Println("timeout seconds")
+	time.Sleep(10 * time.Second)
+	fmt.Fprint(w,"timeout did not hanppen")
+}
 
 func main(){
 	http.HandleFunc("/",htmltag)
+	http.HandleFunc("/timeout",timeout)
 	http.ListenAndServe(":8080",nil)
 }
