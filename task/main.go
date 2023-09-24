@@ -48,7 +48,8 @@ func main() {
 			continue
 		}
 
-		processBatch(messages, uploader)
+		// Process each batch of messages in a goroutine
+		go processBatch(messages, uploader)
 	}
 }
 
